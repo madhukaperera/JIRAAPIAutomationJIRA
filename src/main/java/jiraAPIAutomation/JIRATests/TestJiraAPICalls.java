@@ -45,7 +45,7 @@ public class TestJiraAPICalls {
 		
 		
 		//Add a comment to an existing issue
-		String addCommentResponse = given().log().all().pathParam("issueID", issueID).header("Content-Type", "application/json").body(MsgPayloads.AddIssueComment())
+		String addCommentResponse = given().log().all().pathParam("issueID", issueID).header("Content-Type", "application/json").body(MsgPayloads.AddIssueComment("Here goes the first comment of the issue"))
 				.when()
 				.filter(jiraSessionFilter)
 				.post(propVal.getPropValues("api_add_comment_resource"))
@@ -57,7 +57,7 @@ public class TestJiraAPICalls {
 		Thread.sleep(2000);
 		
 		//Update a comment in an issue
-		String updateCommentResponse = given().log().all().pathParam("issueKey", issueKey).pathParam("commentID", commentID).header("Content-Type", "application/json").body(MsgPayloads.UpdateComment())
+		String updateCommentResponse = given().log().all().pathParam("issueKey", issueKey).pathParam("commentID", commentID).header("Content-Type", "application/json").body(MsgPayloads.UpdateComment("Herewith I am updating my second comment of the issue"))
 		.when()
 		.filter(jiraSessionFilter)
 		.put(propVal.getPropValues("api_update_comment_resource"))

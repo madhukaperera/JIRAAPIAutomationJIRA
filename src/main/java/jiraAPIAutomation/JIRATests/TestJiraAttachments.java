@@ -46,7 +46,7 @@ public static void main(String[] args) throws IOException, Throwable {
 		
 		
 		//Add a comment to an existing issue
-		String addCommentResponse = given().log().all().pathParam("issueID", issueID).header("Content-Type", "application/json").body(MsgPayloads.AddIssueComment())
+		String addCommentResponse = given().log().all().pathParam("issueID", issueID).header("Content-Type", "application/json").body(MsgPayloads.AddIssueComment("Here goes the first comment of the issue"))
 				.when()
 				.filter(jiraSessionFilter)
 				.post(propVal.getPropValues("api_add_comment_resource"))
@@ -58,14 +58,13 @@ public static void main(String[] args) throws IOException, Throwable {
 		Thread.sleep(2000);
 		
 		//Add an attachment to an existing issue
-		given().header("X-Atlassian-Token","no-check").filter(jiraSessionFilter).pathParam("issueIdOrKey", issueID)
-		.header("Content-Type", "multipart/form-data")
-		.multiPart("file",new File("AttachToIssue.txt"))
-		.when()
-		.post(propVal.getPropValues("api_add_attachment_resource"))
-		.then().log().all().assertThat().statusCode(200);
+		given()
+			.header("X-Atlassian-Token","no-check").filter(jiraSessionFilter).pathParam("issueIdOrKey", issueID)
+			.header("Content-Type", "multipart/form-data")
+			.multiPart("file",new File("AttachToIssue.txt"))
+			.when()
+			.post(propVal.getPropValues("api_add_attachment_resource"))
+			.then().log().all().assertThat().statusCode(200);
 		
-		
-
 	}
 }
