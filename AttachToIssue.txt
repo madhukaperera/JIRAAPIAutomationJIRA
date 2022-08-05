@@ -1,0 +1,1 @@
+Sample file attachment to be automatically attached to an existing issue.
